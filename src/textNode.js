@@ -1,9 +1,9 @@
-import Konva from "konva";
-const uuidv1 = require("uuid/v1");
+import Konva from 'konva';
+const uuidv1 = require('uuid/v1');
 export const addTextNode = (stage, layer) => {
   const id = uuidv1();
   const textNode = new Konva.Text({
-    text: "type here",
+    text: 'type here',
     x: 50,
     y: 80,
     fontSize: 20,
@@ -14,14 +14,14 @@ export const addTextNode = (stage, layer) => {
   layer.add(textNode);
   let tr = new Konva.Transformer({
     node: textNode,
-    enabledAnchors: ["middle-left", "middle-right"],
+    enabledAnchors: ['middle-left', 'middle-right'],
     // set minimum width of text
     boundBoxFunc: function(oldBox, newBox) {
       newBox.width = Math.max(30, newBox.width);
       return newBox;
     },
   });
-  stage.on("click", function(e) {
+  stage.on('click', function(e) {
     if (!this.clickStartShape) {
       return;
     }
@@ -34,7 +34,7 @@ export const addTextNode = (stage, layer) => {
       layer.draw();
     }
   });
-  textNode.on("transform", function() {
+  textNode.on('transform', function() {
     // reset scale, so only with is changing by transformer
     textNode.setAttrs({
       width: textNode.width() * textNode.scaleX(),
@@ -43,68 +43,68 @@ export const addTextNode = (stage, layer) => {
   });
   layer.add(tr);
   layer.draw();
-  textNode.on("dblclick", () => {
+  textNode.on('dblclick', () => {
     // hide text node and transformer:
     textNode.hide();
     tr.hide();
     layer.draw();
-// create textarea over canvas with absolute position
+    // create textarea over canvas with absolute position
     // first we need to find position for textarea
     // how to find it?
-// at first lets find position of text node relative to the stage:
+    // at first lets find position of text node relative to the stage:
     let textPosition = textNode.absolutePosition();
-// then lets find position of stage container on the page:
+    // then lets find position of stage container on the page:
     let stageBox = stage.container().getBoundingClientRect();
-// so position of textarea will be the sum of positions above:
+    // so position of textarea will be the sum of positions above:
     let areaPosition = {
       x: stageBox.left + textPosition.x,
       y: stageBox.top + textPosition.y,
     };
-// create textarea and style it
-    let textarea = document.createElement("textarea");
+    // create textarea and style it
+    let textarea = document.createElement('textarea');
     document.body.appendChild(textarea);
-// apply many styles to match text on canvas as close as possible
+    // apply many styles to match text on canvas as close as possible
     // remember that text rendering on canvas and on the textarea can be different
     // and sometimes it is hard to make it 100% the same. But we will try...
     textarea.value = textNode.text();
-    textarea.style.position = "absolute";
-    textarea.style.top = areaPosition.y + "px";
-    textarea.style.left = areaPosition.x + "px";
-    textarea.style.width = textNode.width() - textNode.padding() * 2 + "px";
+    textarea.style.position = 'absolute';
+    textarea.style.top = areaPosition.y + 'px';
+    textarea.style.left = areaPosition.x + 'px';
+    textarea.style.width = textNode.width() - textNode.padding() * 2 + 'px';
     textarea.style.height =
-      textNode.height() - textNode.padding() * 2 + 5 + "px";
-    textarea.style.fontSize = textNode.fontSize() + "px";
-    textarea.style.border = "none";
-    textarea.style.padding = "0px";
-    textarea.style.margin = "0px";
-    textarea.style.overflow = "hidden";
-    textarea.style.background = "none";
-    textarea.style.outline = "none";
-    textarea.style.resize = "none";
+      textNode.height() - textNode.padding() * 2 + 5 + 'px';
+    textarea.style.fontSize = textNode.fontSize() + 'px';
+    textarea.style.border = 'none';
+    textarea.style.padding = '0px';
+    textarea.style.margin = '0px';
+    textarea.style.overflow = 'hidden';
+    textarea.style.background = 'none';
+    textarea.style.outline = 'none';
+    textarea.style.resize = 'none';
     textarea.style.lineHeight = textNode.lineHeight();
     textarea.style.fontFamily = textNode.fontFamily();
-    textarea.style.transformOrigin = "left top";
+    textarea.style.transformOrigin = 'left top';
     textarea.style.textAlign = textNode.align();
     textarea.style.color = textNode.fill();
     let rotation = textNode.rotation();
-    let transform = "";
+    let transform = '';
     if (rotation) {
-      transform += "rotateZ(" + rotation + "deg)";
+      transform += 'rotateZ(' + rotation + 'deg)';
     }
     let px = 0;
-    let isFirefox = navigator.userAgent.toLowerCase().indexOf("firefox") > -1;
+    let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     if (isFirefox) {
       px += 2 + Math.round(textNode.fontSize() / 20);
     }
-    transform += "translateY(-" + px + "px)";
+    transform += 'translateY(-' + px + 'px)';
     textarea.style.transform = transform;
-    textarea.style.height = "auto";
+    textarea.style.height = 'auto';
     // after browsers resized it we can set actual value
-    textarea.style.height = textarea.scrollHeight + 3 + "px";
+    textarea.style.height = textarea.scrollHeight + 3 + 'px';
     textarea.focus();
     function removeTextarea() {
       textarea.parentNode.removeChild(textarea);
-      window.removeEventListener("click", handleOutsideClick);
+      window.removeEventListener('click', handleOutsideClick);
       textNode.show();
       tr.show();
       tr.forceUpdate();
@@ -117,17 +117,17 @@ export const addTextNode = (stage, layer) => {
       }
       // some extra fixes on different browsers
       let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-      let isFirefox = navigator.userAgent.toLowerCase().indexOf("firefox") > -1;
+      let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
       if (isSafari || isFirefox) {
         newWidth = Math.ceil(newWidth);
       }
-let isEdge = document.documentMode || /Edge/.test(navigator.userAgent);
+      let isEdge = document.documentMode || /Edge/.test(navigator.userAgent);
       if (isEdge) {
         newWidth += 1;
       }
-      textarea.style.width = newWidth + "px";
+      textarea.style.width = newWidth + 'px';
     }
-    textarea.addEventListener("keydown", function(e) {
+    textarea.addEventListener('keydown', function(e) {
       // hide on enter
       // but don't hide on shift + enter
       if (e.keyCode === 13 && !e.shiftKey) {
@@ -139,12 +139,12 @@ let isEdge = document.documentMode || /Edge/.test(navigator.userAgent);
         removeTextarea();
       }
     });
-    textarea.addEventListener("keydown", function(e) {
+    textarea.addEventListener('keydown', function(e) {
       let scale = textNode.getAbsoluteScale().x;
       setTextareaWidth(textNode.width() * scale);
-      textarea.style.height = "auto";
+      textarea.style.height = 'auto';
       textarea.style.height =
-        textarea.scrollHeight + textNode.fontSize() + "px";
+        textarea.scrollHeight + textNode.fontSize() + 'px';
     });
     function handleOutsideClick(e) {
       if (e.target !== textarea) {
@@ -152,7 +152,7 @@ let isEdge = document.documentMode || /Edge/.test(navigator.userAgent);
       }
     }
     setTimeout(() => {
-      window.addEventListener("click", handleOutsideClick);
+      window.addEventListener('click', handleOutsideClick);
     });
   });
   return id;

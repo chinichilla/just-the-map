@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import Button from "react-bootstrap/Button";
+import React, { useState } from 'react';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Button from 'react-bootstrap/Button';
 // import "./HomePage.css";
-import { Stage, Layer } from "react-konva";
-import Rectangle from "./Rectangle";
-import { addLine } from "./line";
-import { addTextNode } from "./textNode";
-import Image from "./Image";
-const uuidv1 = require("uuid/v1");
+import { Stage, Layer } from 'react-konva';
+import Rectangle from './Grid';
+import { addLine } from './Line';
+import { addTextNode } from './textNode';
+import Image from './Image';
+const uuidv1 = require('uuid/v1');
 
-function HomePage() {
+export default function HomePage() {
   const [rectangles, setRectangles] = useState([]);
   const [images, setImages] = useState([]);
   const [selectedId, selectShape] = useState(null);
@@ -20,16 +20,14 @@ function HomePage() {
   const fileUploadEl = React.createRef();
   const getRandomInt = max => {
     // return Math.floor(Math.random() * Math.floor(max));
-    return max
+    return max;
   };
 
-  const addRectangle = () => {
+  const addGrid = () => {
     const rect = {
-      x: getRandomInt(100),
-      y: getRandomInt(100),
-      width: 100,
-      height: 100,
-      fill: "red",
+      width: window.innerWidth,
+      height: window.innerHeight,
+      fill: 'red',
       id: `rect${rectangles.length + 1}`,
     };
     const rects = rectangles.concat([rect]);
@@ -37,26 +35,31 @@ function HomePage() {
     const shs = shapes.concat([`rect${rectangles.length + 1}`]);
     setShapes(shs);
   };
-const drawLine = () => {
+
+  const drawLine = () => {
     addLine(stageEl.current.getStage(), layerEl.current);
   };
+
   const eraseLine = () => {
-    addLine(stageEl.current.getStage(), layerEl.current, "erase");
+    addLine(stageEl.current.getStage(), layerEl.current, 'erase');
   };
+
   const drawText = () => {
     const id = addTextNode(stageEl.current.getStage(), layerEl.current);
     const shs = shapes.concat([id]);
     setShapes(shs);
   };
+
   const drawImage = () => {
     fileUploadEl.current.click();
   };
+
   const forceUpdate = React.useCallback(() => updateState({}), []);
   const fileChange = ev => {
     let file = ev.target.files[0];
     let reader = new FileReader();
     reader.addEventListener(
-      "load",
+      'load',
       () => {
         const id = uuidv1();
         images.push({
@@ -91,8 +94,8 @@ const drawLine = () => {
     setShapes(shapes);
     forceUpdate();
   };
-  document.addEventListener("keydown", ev => {
-    if (ev.code == "Delete") {
+  document.addEventListener('keydown', ev => {
+    if (ev.code == 'Delete') {
       let index = rectangles.findIndex(r => r.id == selectedId);
       if (index != -1) {
         rectangles.splice(index, 1);
@@ -110,8 +113,8 @@ const drawLine = () => {
   return (
     <div className="home-page">
       <ButtonGroup>
-        <Button variant="secondary" onClick={addRectangle}>
-          Rectangle
+        <Button variant="secondary" onClick={addGrid}>
+          Add Grid
         </Button>
         <Button variant="secondary" onClick={drawLine}>
           Line
@@ -130,7 +133,7 @@ const drawLine = () => {
         </Button>
       </ButtonGroup>
       <input
-        style={{ display: "none" }}
+        style={{ display: 'none' }}
         type="file"
         ref={fileUploadEl}
         onChange={fileChange}
@@ -186,4 +189,3 @@ const drawLine = () => {
     </div>
   );
 }
-export default HomePage;
