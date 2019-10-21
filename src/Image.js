@@ -1,6 +1,6 @@
-import React from "react";
-import { Image, Transformer } from "react-konva";
-import useImage from "use-image";
+import React from 'react';
+import { Image, Transformer } from 'react-konva';
+import useImage from 'use-image';
 const Img = ({ shapeProps, isSelected, onSelect, onChange, imageUrl }) => {
   const shapeRef = React.useRef();
   const trRef = React.useRef();
