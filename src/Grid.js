@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import GridLines from './GridLines';
 
-const Grid = ({ gridLength = 50, isVisible = true }) => {
+const Grid = ({ gridLength = 50 }) => {
   return (
     <Fragment>
-      <GridLines gridLength={gridLength} isVisible={isVisible} />
+      <GridLines gridLength={gridLength} />
     </Fragment>
   );
 };

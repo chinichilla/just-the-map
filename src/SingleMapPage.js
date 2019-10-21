@@ -1,27 +1,31 @@
 import React, { useState } from 'react';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
-// import "./HomePage.css";
+// import "./SingleMapPage.css";
 import { Stage, Layer } from 'react-konva';
-import Grid from './Grid';
 import { addLine } from './Line';
 import { addTextNode } from './textNode';
 import Image from './Image';
 import MapBackground from './MapBackground';
+import Grid from './Grid';
+import Rectangle from './MaskLayer';
 
 const uuidv1 = require('uuid/v1');
 
-export default function HomePage() {
+export default function SingleMapPage() {
+  const [maskVisible, toggleMask] = useState(false);
   const [rectangles, setRectangles] = useState([]);
+
   const [images, setImages] = useState([]);
   const [imageWidth] = useState(window.innerWidth * 0.99);
   const [imageHeight] = useState(window.innerHeight * 0.97);
 
   const [selectedId, selectShape] = useState(null);
-  const [isVisible, toggleGrid] = useState(false);
+  const [gridVisible, toggleGrid] = useState(false);
 
   const [shapes, setShapes] = useState([]);
   const [, updateState] = React.useState();
+
   const stageEl = React.createRef();
   const layerEl = React.createRef();
   const layerMap = React.createRef();
@@ -93,12 +97,7 @@ export default function HomePage() {
 
   document.addEventListener('keydown', ev => {
     if (ev.code == 'Delete') {
-      let index = rectangles.findIndex(r => r.id == selectedId);
-      if (index != -1) {
-        rectangles.splice(index, 1);
-        setRectangles(rectangles);
-      }
-      index = images.findIndex(r => r.id == selectedId);
+      let index = images.findIndex(r => r.id == selectedId);
       if (index != -1) {
         images.splice(index, 1);
         setImages(images);
@@ -110,11 +109,14 @@ export default function HomePage() {
   return (
     <div className="home-page">
       <ButtonGroup>
-        <Button variant="secondary" onClick={() => toggleGrid(!isVisible)}>
-          Add Grid
+        <Button variant="secondary" onClick={() => toggleGrid(!gridVisible)}>
+          Grid
+        </Button>
+        <Button variant="secondary" onClick={() => toggleMask(!maskVisible)}>
+          Mask
         </Button>
         <Button variant="secondary" onClick={drawLine}>
-          Line
+          Draw
         </Button>
         <Button variant="secondary" onClick={eraseLine}>
           Erase
@@ -155,6 +157,7 @@ export default function HomePage() {
           />
         </Layer>
         <Layer ref={layerEl}>
+          {maskVisible && <Rectangle width={imageWidth} height={imageHeight} />}
           {images.map((image, i) => {
             return (
               <Image
@@ -172,9 +175,7 @@ export default function HomePage() {
             );
           })}
         </Layer>
-        <Layer>
-          <Grid isVisible={isVisible} />
-        </Layer>
+        <Layer>{gridVisible && <Grid />}</Layer>
       </Stage>
     </div>
   );

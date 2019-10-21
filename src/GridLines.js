@@ -31,9 +31,8 @@ export default class Grid extends Component {
 
   render() {
     let gridLines = [];
-    if (this.props.isVisible) {
-      gridLines = this.makeGrid();
-    }
+    gridLines = this.makeGrid();
+
     return gridLines.map(line => (
       <Line
         key={line.key}
