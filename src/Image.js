@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Image, Transformer } from 'react-konva';
 import useImage from 'use-image';
 const Img = ({ shapeProps, isSelected, onSelect, onChange, imageUrl }) => {
@@ -13,7 +13,7 @@ const Img = ({ shapeProps, isSelected, onSelect, onChange, imageUrl }) => {
     }
   }, [isSelected]);
   return (
-    <React.Fragment>
+    <Fragment>
       <Image
         onClick={onSelect}
         image={image}
@@ -40,7 +40,7 @@ const Img = ({ shapeProps, isSelected, onSelect, onChange, imageUrl }) => {
         }}
       />
       {isSelected && <Transformer ref={trRef} />}
-    </React.Fragment>
+    </Fragment>
   );
 };
 export default Img;
