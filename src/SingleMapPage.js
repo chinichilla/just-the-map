@@ -19,7 +19,9 @@ export default function SingleMapPage() {
   const [imageWidth] = useState(window.innerWidth * 0.99);
   const [imageHeight] = useState(window.innerHeight * 0.97);
 
-  const [mapBackground] = useState('https://i.redd.it/ib2csyjz4r4z.jpg');
+  const [mapBackground] = useState(
+    'https://i.pinimg.com/originals/82/be/43/82be43d9868aa144ec6de0b7d5268aef.jpg'
+  );
 
   const [selectedId, selectShape] = useState(null);
   const [gridVisible, toggleGrid] = useState(false);
