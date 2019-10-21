@@ -3,7 +3,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 // import "./HomePage.css";
 import { Stage, Layer } from 'react-konva';
-import Rectangle from './Grid';
+import Grid from './Grid';
 import { addLine } from './Line';
 import { addTextNode } from './textNode';
 import Image from './Image';
@@ -151,23 +151,7 @@ export default function HomePage() {
         }}
       >
         <Layer ref={layerEl}>
-          {rectangles.map((rect, i) => {
-            return (
-              <Rectangle
-                key={i}
-                shapeProps={rect}
-                isSelected={rect.id === selectedId}
-                onSelect={() => {
-                  selectShape(rect.id);
-                }}
-                onChange={newAttrs => {
-                  const rects = rectangles.slice();
-                  rects[i] = newAttrs;
-                  setRectangles(rects);
-                }}
-              />
-            );
-          })}
+          <Grid />
           {images.map((image, i) => {
             return (
               <Image

@@ -28,8 +28,12 @@ export default class Grid extends Component {
     }
     return gridLines;
   }
+
   render() {
-    const gridLines = this.makeGrid();
+    let gridLines = [];
+    if (this.props.isVisible) {
+      gridLines = this.makeGrid();
+    }
     return gridLines.map(line => (
       <Line
         key={line.key}
@@ -38,7 +42,6 @@ export default class Grid extends Component {
         points={line.points}
         tension={0.5}
         stroke="gray"
-        // dash={[10, 10]}
       />
     ));
   }

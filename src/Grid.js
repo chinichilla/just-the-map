@@ -1,22 +1,10 @@
 import React from 'react';
-import { Rect, Transformer } from 'react-konva';
-import GridClass from './GridClass';
+import GridLines from './GridLines';
 
-const Grid = ({ gridLength = 10, isSelected }) => {
-  const shapeRef = React.useRef();
-  const trRef = React.useRef();
-
-  React.useEffect(() => {
-    if (isSelected) {
-      // we need to attach transformer manually
-      trRef.current.setNode(shapeRef.current);
-      trRef.current.getLayer().batchDraw();
-    }
-  }, [isSelected]);
-
+const Grid = ({ gridLength = 20, isVisible = true }) => {
   return (
     <React.Fragment>
-      <GridClass gridLength={gridLength} />
+      <GridLines gridLength={gridLength} isVisible={isVisible} />
     </React.Fragment>
   );
 };
