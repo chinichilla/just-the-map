@@ -14,11 +14,12 @@ const uuidv1 = require('uuid/v1');
 
 export default function SingleMapPage() {
   const [maskVisible, toggleMask] = useState(false);
-  const [rectangles, setRectangles] = useState([]);
 
   const [images, setImages] = useState([]);
   const [imageWidth] = useState(window.innerWidth * 0.99);
   const [imageHeight] = useState(window.innerHeight * 0.97);
+
+  const [mapBackground] = useState('https://i.redd.it/ib2csyjz4r4z.jpg');
 
   const [selectedId, selectShape] = useState(null);
   const [gridVisible, toggleGrid] = useState(false);
@@ -30,11 +31,6 @@ export default function SingleMapPage() {
   const layerEl = React.createRef();
   const layerMap = React.createRef();
   const fileUploadEl = React.createRef();
-
-  const getRandomInt = max => {
-    // return Math.floor(Math.random() * Math.floor(max));
-    return max;
-  };
 
   const drawLine = () => {
     addLine(stageEl.current.getStage(), layerEl.current);
@@ -78,22 +74,6 @@ export default function SingleMapPage() {
       reader.readAsDataURL(file);
     }
   };
-  // const undo = () => {
-  //   const lastId = shapes[shapes.length - 1];
-  //   let index = rectangles.findIndex(r => r.id == lastId);
-  //   if (index != -1) {
-  //     rectangles.splice(index, 1);
-  //     setRectangles(rectangles);
-  //   }
-  //   index = images.findIndex(r => r.id == lastId);
-  //   if (index != -1) {
-  //     images.splice(index, 1);
-  //     setImages(images);
-  //   }
-  //   shapes.pop();
-  //   setShapes(shapes);
-  //   forceUpdate();
-  // };
 
   document.addEventListener('keydown', ev => {
     if (ev.code == 'Delete') {
@@ -122,14 +102,11 @@ export default function SingleMapPage() {
           Erase
         </Button>
         <Button variant="secondary" onClick={drawText}>
-          Add New Player
+          Player Text{' '}
         </Button>
         <Button variant="secondary" onClick={drawImage}>
-          Image
+          Player Icon
         </Button>
-        {/* <Button variant="secondary" onClick={undo}>
-          Undo
-        </Button> */}
       </ButtonGroup>
       <input
         style={{ display: 'none' }}
@@ -151,7 +128,7 @@ export default function SingleMapPage() {
       >
         <Layer ref={layerMap}>
           <MapBackground
-            imageUrl={'https://i.redd.it/ib2csyjz4r4z.jpg'}
+            imageUrl={mapBackground}
             width={imageWidth}
             height={imageHeight}
           />
