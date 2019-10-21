@@ -1,5 +1,5 @@
 {
-  "name": "konva-app",
+  "name": "just-the-map",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,6 +13,10 @@
     "react-scripts": "3.2.0",
     "use-image": "^1.0.5",
     "uuid": "^3.3.3"
+  },
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
