@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
-import HomePage from './HomePage';
+import SingleMapPage from './SingleMapPage';
 import { createBrowserHistory as createHistory } from 'history';
 import './App.css';
 
@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <Router history={history}>
-        <Route path="/" exact component={HomePage} />
+        <Route path="/" exact component={SingleMapPage} />
       </Router>
     </div>
   );
