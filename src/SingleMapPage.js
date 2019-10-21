@@ -7,33 +7,29 @@ import Grid from './Grid';
 import { addLine } from './Line';
 import { addTextNode } from './textNode';
 import Image from './Image';
+import MapBackground from './MapBackground';
+
 const uuidv1 = require('uuid/v1');
 
 export default function HomePage() {
   const [rectangles, setRectangles] = useState([]);
   const [images, setImages] = useState([]);
+  const [imageWidth] = useState(window.innerWidth * 0.99);
+  const [imageHeight] = useState(window.innerHeight * 0.97);
+
   const [selectedId, selectShape] = useState(null);
+  const [isVisible, toggleGrid] = useState(false);
+
   const [shapes, setShapes] = useState([]);
   const [, updateState] = React.useState();
   const stageEl = React.createRef();
   const layerEl = React.createRef();
+  const layerMap = React.createRef();
   const fileUploadEl = React.createRef();
+
   const getRandomInt = max => {
     // return Math.floor(Math.random() * Math.floor(max));
     return max;
-  };
-
-  const addGrid = () => {
-    const rect = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-      fill: 'red',
-      id: `rect${rectangles.length + 1}`,
-    };
-    const rects = rectangles.concat([rect]);
-    setRectangles(rects);
-    const shs = shapes.concat([`rect${rectangles.length + 1}`]);
-    setShapes(shs);
   };
 
   const drawLine = () => {
@@ -78,22 +74,23 @@ export default function HomePage() {
       reader.readAsDataURL(file);
     }
   };
-  const undo = () => {
-    const lastId = shapes[shapes.length - 1];
-    let index = rectangles.findIndex(r => r.id == lastId);
-    if (index != -1) {
-      rectangles.splice(index, 1);
-      setRectangles(rectangles);
-    }
-    index = images.findIndex(r => r.id == lastId);
-    if (index != -1) {
-      images.splice(index, 1);
-      setImages(images);
-    }
-    shapes.pop();
-    setShapes(shapes);
-    forceUpdate();
-  };
+  // const undo = () => {
+  //   const lastId = shapes[shapes.length - 1];
+  //   let index = rectangles.findIndex(r => r.id == lastId);
+  //   if (index != -1) {
+  //     rectangles.splice(index, 1);
+  //     setRectangles(rectangles);
+  //   }
+  //   index = images.findIndex(r => r.id == lastId);
+  //   if (index != -1) {
+  //     images.splice(index, 1);
+  //     setImages(images);
+  //   }
+  //   shapes.pop();
+  //   setShapes(shapes);
+  //   forceUpdate();
+  // };
+
   document.addEventListener('keydown', ev => {
     if (ev.code == 'Delete') {
       let index = rectangles.findIndex(r => r.id == selectedId);
@@ -113,7 +110,7 @@ export default function HomePage() {
   return (
     <div className="home-page">
       <ButtonGroup>
-        <Button variant="secondary" onClick={addGrid}>
+        <Button variant="secondary" onClick={() => toggleGrid(!isVisible)}>
           Add Grid
         </Button>
         <Button variant="secondary" onClick={drawLine}>
@@ -128,9 +125,9 @@ export default function HomePage() {
         <Button variant="secondary" onClick={drawImage}>
           Image
         </Button>
-        <Button variant="secondary" onClick={undo}>
+        {/* <Button variant="secondary" onClick={undo}>
           Undo
-        </Button>
+        </Button> */}
       </ButtonGroup>
       <input
         style={{ display: 'none' }}
@@ -139,8 +136,8 @@ export default function HomePage() {
         onChange={fileChange}
       />
       <Stage
-        width={window.innerWidth * 0.9}
-        height={window.innerHeight - 150}
+        width={imageWidth}
+        height={imageHeight}
         ref={stageEl}
         onMouseDown={e => {
           // deselect when clicked on empty area
@@ -150,8 +147,14 @@ export default function HomePage() {
           }
         }}
       >
+        <Layer ref={layerMap}>
+          <MapBackground
+            imageUrl={'https://i.redd.it/ib2csyjz4r4z.jpg'}
+            width={imageWidth}
+            height={imageHeight}
+          />
+        </Layer>
         <Layer ref={layerEl}>
-          <Grid />
           {images.map((image, i) => {
             return (
               <Image
@@ -168,6 +171,9 @@ export default function HomePage() {
               />
             );
           })}
+        </Layer>
+        <Layer>
+          <Grid isVisible={isVisible} />
         </Layer>
       </Stage>
     </div>
