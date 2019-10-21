@@ -1,9 +1,9 @@
-import React from "react";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
+import React from 'react';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 // import NavDropdown from "react-bootstrap/NavDropdown";
 // import "./TopBar.css";
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 function TopBar({ location }) {
   const { pathname } = location;
   return (
@@ -12,7 +12,7 @@ function TopBar({ location }) {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/" active={pathname == "/"}>
+          <Nav.Link href="/" active={pathname == '/'}>
             Home
           </Nav.Link>
         </Nav>
