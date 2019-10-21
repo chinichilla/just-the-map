@@ -24,7 +24,9 @@ export default function HomePage() {
   const [, updateState] = React.useState();
   const stageEl = React.createRef();
   const layerEl = React.createRef();
+  const layerMap = React.createRef();
   const fileUploadEl = React.createRef();
+
   const getRandomInt = max => {
     // return Math.floor(Math.random() * Math.floor(max));
     return max;
@@ -72,22 +74,23 @@ export default function HomePage() {
       reader.readAsDataURL(file);
     }
   };
-  const undo = () => {
-    const lastId = shapes[shapes.length - 1];
-    let index = rectangles.findIndex(r => r.id == lastId);
-    if (index != -1) {
-      rectangles.splice(index, 1);
-      setRectangles(rectangles);
-    }
-    index = images.findIndex(r => r.id == lastId);
-    if (index != -1) {
-      images.splice(index, 1);
-      setImages(images);
-    }
-    shapes.pop();
-    setShapes(shapes);
-    forceUpdate();
-  };
+  // const undo = () => {
+  //   const lastId = shapes[shapes.length - 1];
+  //   let index = rectangles.findIndex(r => r.id == lastId);
+  //   if (index != -1) {
+  //     rectangles.splice(index, 1);
+  //     setRectangles(rectangles);
+  //   }
+  //   index = images.findIndex(r => r.id == lastId);
+  //   if (index != -1) {
+  //     images.splice(index, 1);
+  //     setImages(images);
+  //   }
+  //   shapes.pop();
+  //   setShapes(shapes);
+  //   forceUpdate();
+  // };
+
   document.addEventListener('keydown', ev => {
     if (ev.code == 'Delete') {
       let index = rectangles.findIndex(r => r.id == selectedId);
@@ -122,9 +125,9 @@ export default function HomePage() {
         <Button variant="secondary" onClick={drawImage}>
           Image
         </Button>
-        <Button variant="secondary" onClick={undo}>
+        {/* <Button variant="secondary" onClick={undo}>
           Undo
-        </Button>
+        </Button> */}
       </ButtonGroup>
       <input
         style={{ display: 'none' }}
@@ -144,6 +147,13 @@ export default function HomePage() {
           }
         }}
       >
+        <Layer ref={layerMap}>
+          <MapBackground
+            imageUrl={'https://i.redd.it/ib2csyjz4r4z.jpg'}
+            width={imageWidth}
+            height={imageHeight}
+          />
+        </Layer>
         <Layer ref={layerEl}>
           {images.map((image, i) => {
             return (
@@ -161,13 +171,6 @@ export default function HomePage() {
               />
             );
           })}
-        </Layer>
-        <Layer>
-          <MapBackground
-            imageUrl={'https://i.redd.it/ib2csyjz4r4z.jpg'}
-            width={imageWidth}
-            height={imageHeight}
-          />
         </Layer>
         <Layer>
           <Grid isVisible={isVisible} />
