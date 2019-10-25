@@ -22,7 +22,7 @@ Right now, a hard-coded, background map can have a fixed grid and mask layer put
 
 Follow the [dd-mapper repo](https://github.com/djchinia/dd-mapper) since I'm planning to build out most of the functionality there. The overall plan is something that looks like this: 
 
-![Map Collection Planning](https://github.com/djchinia/just-the-map/blob/master/public/planning.jpg)
+![Map Collection Planning](https://github.com/djchinia/just-the-map/blob/master/public/planning.jpeg)
 
 ### Acknowledgements
 * Konva.js - [https://konvajs.org](https://konvajs.org)
