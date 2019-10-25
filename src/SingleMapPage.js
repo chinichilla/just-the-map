@@ -8,7 +8,7 @@ import { addTextNode } from './textNode';
 import Image from './Image';
 import MapBackground from './MapBackground';
 import Grid from './Grid';
-import Rectangle from './MaskLayer';
+import MaskLayer from './MaskLayer';
 
 const uuidv1 = require('uuid/v1');
 
@@ -136,7 +136,7 @@ export default function SingleMapPage() {
           />
         </Layer>
         <Layer ref={layerEl}>
-          {maskVisible && <Rectangle width={imageWidth} height={imageHeight} />}
+          {maskVisible && <MaskLayer width={imageWidth} height={imageHeight} />}
           {images.map((image, i) => {
             return (
               <Image
