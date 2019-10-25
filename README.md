@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ![Image of D&D Gameplay](https://github.com/djchinia/just-the-map/blob/master/public/gameplay.jpeg)
 
-The inspiration comes from playing Dungeons & Dragons when we went into unknown areas, and my dungeon master (DM) put our maps into a vector graphics editor to conceal areas we hadn't explored yet.  An opaque mask layer was put on top of any of the unknown maps. The overall goal of this project is to give dungeon masters a collection of maps where they can save gameplay. I'm continuing it in the 
+The inspiration comes from playing Dungeons & Dragons when we went into unknown areas, and my dungeon master (DM) put our maps into a vector graphics editor to conceal areas we hadn't explored yet.  An opaque mask layer was put on top of any of the unknown maps and slowly erased the explored areas throughout the session. The goal of this project is to give dungeon masters a collection of maps where they can save gameplay. I'm continuing it in the [dd-mapper repo](https://github.com/djchinia/dd-mapper).
 
 ### Setup
 
