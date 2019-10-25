@@ -1,5 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and [Konva](https://konvajs.org/). A launched version of the application can be found on Heroku: https://just-the-map.herokuapp.com/.
 
+![Image of Heroku App](https://github.com/djchinia/just-the-map/blob/master/public/heroku-app.jpeg)
+
+
 ### Inspiration
 
 ![Image of D&D Gameplay](https://github.com/djchinia/just-the-map/blob/master/public/gameplay.jpeg)
